@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+. "$(dirname "$0")/_/husky.sh"
+
+# Run tests and capture the exit code
+bun test
+TEST_EXIT_CODE=$?
+
+# If tests fail (exit code is not 0), prevent push
+if [ $TEST_EXIT_CODE -ne 0 ]; then
+  echo "❌ Tests failed. Push aborted."
+  exit 1
+fi
+
+exit 0
